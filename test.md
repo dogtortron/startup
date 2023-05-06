@@ -1,2 +1,1 @@
-
-Change from environment development. Double smiley faces :) :)s
+Change from environment development and from GitHub.
