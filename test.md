@@ -1,2 +1,2 @@
 
-Change from my development environment and from GitHub.
+Change from my development environment.
