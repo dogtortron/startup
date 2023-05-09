@@ -8,7 +8,7 @@ Have you ever heard a beautiful bird song and wanted to mimic it? Billy, a yello
 
 ### Design
 
-![Mock](singLikeBillyMockUI.jpg)
+![Mock](singLikeBillyMockUI.jpeg)
 
 
 ### Key features
