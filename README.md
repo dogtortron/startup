@@ -34,3 +34,13 @@ I am going to use the required technologies in the following ways.
 - **Authentication** - Register and login users. Credentials securely stored in database.
 - **WebSocket** - After each user played, their best score is displayed on the scoreboard.
 
+## HTML Deliverable
+For this deliverable I added the application structure.
+- **HTML pages** - 
+- **Links** -
+- **Text** -
+- **Images** -
+- **Videos** - 
+- **Login** - 
+- **Database** -
+- **WebSocket** - 
