@@ -36,11 +36,11 @@ I am going to use the required technologies in the following ways.
 
 ## HTML Deliverable
 For this deliverable I added the application structure.
-- **HTML pages** - 
-- **Links** -
-- **Text** -
-- **Images** -
-- **Videos** - 
-- **Login** - 
-- **Database** -
-- **WebSocket** - 
+- **HTML pages** - Fours HTML pages, one for login, one for play, one for scoreboard, one for about.
+- **Links** - Each page has links to the other pages. The About page has a link to an external source.
+- **Text** - The About page has a description of how the game was inspired.
+- **Images** - An SVG image of a bird in the Login page.
+- **Videos** - A Youtube video in the About page.
+- **Login** - Input box and submit button for login
+- **Database** - The Scoreboard page shows data pulled from the database.
+- **WebSocket** - The Play page has a live section of who's doing what (scoring, entering, or exiting the game)
