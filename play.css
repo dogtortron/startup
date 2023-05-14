@@ -1,4 +1,4 @@
-main. {
+main {
     flex: 1 calc(100vh - 130px);
     display: flex;
     flex-direction: row;
@@ -7,9 +7,5 @@ main. {
 .playButton button {
     margin: 1em;
     padding: 0.5em;
-}
-
-.playerMessage {
-    display: block;
 }
 
