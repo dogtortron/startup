@@ -1,0 +1,68 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-width: 375px;
+  }
+
+  header {
+    flex: 0 80px;
+    background-color: peachpuff;
+    border-bottom: solid black thin;
+    color: darkslategray;
+  }
+
+  header a {
+    text-decoration: none;
+    color: darkslategray;
+
+  }
+  
+  nav {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    
+  }
+  
+  nav li {
+    padding: 0 1em 0 0;
+  }
+  
+  main {
+    flex: 1 calc(100vh - 130px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background-color: lightblue;
+  }
+  h1 {
+    flex: 0.5;
+  }
+  form {
+    flex: 1;
+  }
+  svg {
+    flex: 2;
+    display: flex;
+    width: 40vh;
+    color: lightgreen;
+    
+  }
+  
+  footer {
+    flex: 0 50px;
+    background-color: peachpuff;
+  }
+  footer a{
+    float: right;
+    text-decoration: none;
+    color: darkslategray;
+  }
+  
+  footer span{
+    float: right;
+  }
+
+  
