@@ -43,11 +43,11 @@ body {
   form {
     flex: 1;
   }
-  svg {
+  .mainSVG {
     flex: 2;
     display: flex;
-    width: 40vh;
-    color: lightgreen;
+    width: 40vw;
+    height: 40vh;
     
   }
   
