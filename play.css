@@ -1,11 +1,59 @@
-main {
-    flex: 1 calc(100vh - 130px);
+
+.playSVG {
+    flex: 2;
     display: flex;
+    height: 40vh;
+    align-content: stretch;
+}
+
+.message {
+    flex: 1;
+    display: flex;
+    align-self: flex-end;
+    margin-bottom: 1rem;
+}
+.play {
+    display: flex;
+    flex: 4;
     flex-direction: row;
+    flex-wrap: wrap;
+  }
+.divPlay{
+    flex: 0.5;
+    margin-right: 3vw;
+    align-self: flex-start;
+}
+.divButton{
+    flex: 1;
+    margin-left: 3vw;
+    align-self: flex-start;
 }
 
-.playButton button {
+.playerMessage{
+    display: flex;
+    flex-direction: column;
+}
+.btn-primary {
     margin: 1em;
-    padding: 0.5em;
+}
+.playButton{
+    margin-bottom: 3rem;
+}
+.control > div{
+    margin-left: 1em;
+}
+.score{
+    font-size: xx-large;
 }
 
+@media (max-height: 600px) {
+    .message {
+      display: none;
+    }
+  }
+
+  @media (max-width: 440px) {
+    .message {
+      display: none;
+    }
+  }
