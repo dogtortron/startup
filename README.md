@@ -46,7 +46,7 @@ For this deliverable I added the application structure.
 
 ## CSS Deliverable
 For this deliverable I added the application structure.
-- **Header, footer, and main content body** - They're there
+- **Header, footer, and main content body** - They're there.
 - **Navigation elements** - I added brand logo, dropped the underline, changed the font, added dropdown toggle for mobile view.
 - **Responsive to window resizing** - My app looks good on all window sizes and devices. Menu turns to a toggle and the video got dropped in mobile view.
 - **Application elements** - Colors go well together, whitespace is appropriate. There're video and picture. Flex ratio is good.
