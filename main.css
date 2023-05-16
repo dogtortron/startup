@@ -65,3 +65,30 @@ body {
   footer span{
     float: right;
   }
+  
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
+
+  h1 {
+    font-family: "Crimson Text", serif;
+    font-weight: 700 !important;
+}
+    h2 {
+    font-family: "Crimson Text", serif;
+    font-weight: 600;
+    }
+
+    h3 {
+    font-family: "Crimson Text", serif;
+    font-weight: 400;
+    }
+
+  p{
+    font-family: "Crimson Text", serif;
+    font-weight: 400;
+  }
+
+  nav{
+    font-family: "Crimson Text", serif;
+    font-weight: 400;
+    font-size: larger;
+  }
