@@ -18,12 +18,19 @@
 <body>
     <header class="container-fluid">
         <nav class="navbar navbar-expand-sm"> 
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="index.html">
                 <img src="/billy.svg" width="70">Sing Like Billy</a>
-            <li><a href="index.html">Login</a></li>
-            <li><a href="play.html">Play</a></li>
-            <li><a href="scores.html">Score</a></li>
-            <li><a href="about.html">About</a></li>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            <li class="nav-item active"><a class="nav-link" href="index.html">Login</a></li>
+            <li class="nav-item"><a class="nav-link" href="play.html">Play</a></li>
+            <li class="nav-item"><a class="nav-link" href="scores.html">Score</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+            </ul>
+            </div>  
         </nav>
     </header>
     <main class="container-fluid">
@@ -47,5 +54,10 @@
         <br />
         <a href="https://github.com/dogtortron/startup">GitHub</a>
     </footer>
+    <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous">
+    </script>
 </body>
 </html>
