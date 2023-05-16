@@ -45,7 +45,7 @@ For this deliverable I added the application structure.
 - **WebSocket** - The Play page has a live section of who's doing what (scoring, entering, or exiting the game)
 
 ## CSS Deliverable
-For this deliverable I added the application structure.
+For this deliverable, I made the application look cute.
 - **Header, footer, and main content body** - They're there.
 - **Navigation elements** - I added brand logo, dropped the underline, changed the font, added dropdown toggle for mobile view.
 - **Responsive to window resizing** - My app looks good on all window sizes and devices. Menu turns to a toggle and the video got dropped in mobile view.
