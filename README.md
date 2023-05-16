@@ -43,3 +43,12 @@ For this deliverable I added the application structure.
 - **Login** - Input box and submit button for login
 - **Database** - The Scoreboard page shows data pulled from the database.
 - **WebSocket** - The Play page has a live section of who's doing what (scoring, entering, or exiting the game)
+
+## CSS Deliverable
+For this deliverable I added the application structure.
+- **Header, footer, and main content body** - They're there
+- **Navigation elements** - 
+- **Responsive to window resizing** - 
+- **Application elements** - 
+- **Application text content** - 
+- **Application images** - Make images responsive 
