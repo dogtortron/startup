@@ -1,0 +1,46 @@
+main {
+    flex-direction: row;    
+}
+
+iframe {
+    width: 40vw;
+    height: 30vw;
+}
+
+.about{
+    flex: 1;
+    margin-left: 3vw;
+    margin-top: 3vh;
+    align-self: stretch;
+}
+.birdOfTheDay{
+    flex: 1;
+    margin-left: 3vw;
+    margin-top: 3vh;
+    align-self: stretch;
+}
+
+audio{
+    width: 30vw;
+}
+
+.birdImage {
+    height:40vh;
+    margin-bottom: 2vh;
+}
+
+@media (max-width: 755px) {
+    main {
+      flex-direction: column;
+    }
+    iframe{
+        display:none;
+    }
+    audio{
+        width: 60vw;
+    }
+    .birdImage {
+        height:30vh;
+        margin-bottom: 2vh;
+    }
+  }
