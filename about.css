@@ -13,12 +13,19 @@ iframe {
     margin-top: 3vh;
     align-self: stretch;
 }
+
+.about > h2 {
+    border-bottom: solid darkgray thin;
+}
 .birdOfTheDay{
     flex: 1;
     margin-left: 3vw;
     margin-top: 3vh;
     margin-right: 3vw;
     align-self: stretch;
+}
+.birdOfTheDay h2{
+    border-bottom: solid darkgray thin;
 }
 
 audio{
