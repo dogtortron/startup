@@ -16,3 +16,19 @@ function countDown(){
     }
 }, 1000);
 };
+
+// create an array for a song
+// a function to generate a random array with value from 1 to 4, 
+// let's make my life eaier to not do the time. If the player can generate the right sequence, that's good enough.
+
+// function to test if the user got the right sequence of sound
+let generatedSong;
+let userSong;
+function testUser(generatedSong,userSong) {
+    if (JSON.stringify(generatedSong) === JSON.stringify(userSong)) {
+        console.log("good job!")
+    }
+    else {
+        console.log("try again!")
+    };
+}
