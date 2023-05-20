@@ -22,9 +22,9 @@ function countDown(){
 // let's make my life eaier to not do the time. If the player can generate the right sequence, that's good enough.
 
 // function to test if the user got the right sequence of sound
-let generatedSong;
-let userSong;
 function testUser(generatedSong,userSong) {
+    let generatedSong;
+    let userSong;
     if (JSON.stringify(generatedSong) === JSON.stringify(userSong)) {
         console.log("good job!")
     }
@@ -32,3 +32,36 @@ function testUser(generatedSong,userSong) {
         console.log("try again!")
     };
 }
+
+// function to measure how long a key was pressed
+function keyPressedDuration() {
+    let pressed = {};
+    window.onkeydown = function(e) {
+        if (pressed[e.code]) return;
+        pressed[e.code] = e.timeStamp;
+    };
+    window.onkeyup = function(e) {
+        if (!pressed[e.code]) return;
+        let duration = (e.timeStamp - pressed[e.code])/1000;
+        pressed[e.code] = 0;
+        console.log('A key was pressed for ' + duration + ' seconds');
+    };
+};
+
+// function to measure how long a button was pressed
+function mousePressDuration() {
+    let down;
+    let duration = 0;
+    function mousePressed() {
+    down = Date.now();
+    };
+    function mouseReleased() {
+    duration = (Date.now() - down)/1000;
+    };
+    const clicker = document.getElementById("clicker");
+    clicker.addEventListener("mousedown", mousePressed);
+    clicker.addEventListener("mouseup", function() {
+    mouseReleased();
+    console.log(`Time taken: ${duration}s`);
+    });
+};
