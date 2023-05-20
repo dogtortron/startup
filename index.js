@@ -22,9 +22,9 @@ function countDown(){
 // let's make my life eaier to not do the time. If the player can generate the right sequence, that's good enough.
 
 // function to test if the user got the right sequence of sound
+let generatedSong; // apparently this needs to go before function
+let userSong;
 function testUser(generatedSong,userSong) {
-    let generatedSong;
-    let userSong;
     if (JSON.stringify(generatedSong) === JSON.stringify(userSong)) {
         console.log("good job!")
     }
@@ -64,4 +64,19 @@ function mousePressDuration() {
     mouseReleased();
     console.log(`Time taken: ${duration}s`);
     });
+};
+
+// create object for user
+const objUser = {
+    name: 'Dogtor Trog',
+    score: 120,
+    date: Date,
+}
+
+function Person(name, score, date) {
+    return {
+        name: name,
+        score: score,
+        date: date,
+    }
 };
