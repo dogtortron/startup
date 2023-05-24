@@ -21,9 +21,7 @@ function countDown(){
 // a function to generate a random array with value from 1 to 4, 
 // let's make my life eaier to not do the time. If the player can generate the right sequence, that's good enough.
 
-// function to test if the user got the right sequence of sound
-let generatedSong; // apparently this needs to go before function
-let userSong;
+// function to test if the user got the right sequence of sound, the input is an array of numbers
 function testUser(generatedSong,userSong) {
     if (JSON.stringify(generatedSong) === JSON.stringify(userSong)) {
         console.log("good job!")
@@ -50,8 +48,6 @@ function keyPressedDuration() {
 
 // function to measure how long a button was pressed
 function mousePressDuration() {
-    let down;
-    let duration = 0;
     function mousePressed() {
     down = Date.now();
     };
