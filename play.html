@@ -12,7 +12,8 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
-    <script src="index.js"></script>
+    <script defer src="index.js"></script>
+    <script defer src="play.js"></script>
     <title>Sing Like Billy</title>
 </head>
 <body>
@@ -73,12 +74,13 @@
         </div>
         <div class="divButton">
         <section class="playButton">
-            <button type="button" class="btn btn-primary">Note 1</button>
-            <button type="button" class="btn btn-primary">Note 2</button>
-            <button type="button" class="btn btn-primary">Note 3</button>
-            <button type="button" class="btn btn-primary">Note 4</button>
+            <button type="button" id="note1" class="btn btn-primary" onclick="game.pressButton(this)">Note 1</button>
+            <button type="button" id="note2" class="btn btn-primary" onclick="game.pressButton(this)">Note 2</button>
+            <button type="button" id="note3" class="btn btn-primary" onclick="game.pressButton(this)">Note 3</button>
+            <button type="button" id="note4" class="btn btn-primary" onclick="game.pressButton(this)">Note 4</button>
         </section>
         <section class="control">
+            <div><p>Your Name: <span class="player-name"></span></p></div>
             <div><p>Your Score: <span class="score">99</span></p></div>
             <button type="button" class="btn btn-primary">Reset</button>
         </section>
