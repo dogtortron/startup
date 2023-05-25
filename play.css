@@ -32,6 +32,9 @@
 .playerMessage{
     display: flex;
     flex-direction: column;
+    max-height: 141px;
+    Overflow-y:scroll;
+    margin-right: 0.5vw;
 }
 .btn-primary {
     margin: 1em;
