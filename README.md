@@ -57,5 +57,5 @@ For this deliverable, I made the application look cute.
 For this deliverable I made my application functional for users to play game
 - **Login** - When you enter your name and press login, it takes you to the playing page.
 - **Database** - (working on it...) Displays the users and their scores. Currently this is stored and retrieved from local storage, but it will be replaced with the database data later.
-- **WebSocket** - (working on it) I used the setInterval function to periodically add a new user. This will be replaced with WebSocket messages later.
-- **Application logic** - 
+- **WebSocket** - I used the setInterval function to periodically add a new user. This will be replaced with WebSocket messages later.
+- **Application logic** - (working on it...)
