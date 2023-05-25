@@ -35,3 +35,10 @@ class Game {
     }
 }
 const game = new Game();
+
+setInterval(() => {
+    const score = Math.floor(Math.random() * 3000);
+    const chatText = document.querySelector('#player-messages');
+    chatText.innerHTML =
+      `<p>Dogtor Trog scored ${score}</p>` + chatText.innerHTML;
+  }, 5000);
