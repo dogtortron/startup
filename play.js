@@ -4,12 +4,6 @@ const btnDescriptions = [
     { file: 'Note3.mp3'},
     { file: 'Note4.mp3'},
   ];
-
-// loadsound before game
-// document.getElementById('note1').onclick = loadSound('Note1.mp3');
-
-
-
 class Button {
     constructor(description, el) {
         this.el = el;
