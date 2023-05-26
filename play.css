@@ -48,9 +48,10 @@
 .score{
     font-size: xx-large;
 }
-#countDown{
+#game-message{
     display: flex;
     flex-direction: row-reverse;
+    margin: 2vw;
 }
 
 @media (max-height: 600px) {
@@ -59,7 +60,7 @@
     }
   }
 
-  @media (max-width: 440px) {
+  @media (max-width: 500px) {
     .message {
       display: none;
     }
