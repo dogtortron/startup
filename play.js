@@ -59,10 +59,10 @@ class Game {
           
           if (this.sequence[this.playerPlaybackPos].el.id === button.id) {
             this.playerPlaybackPos++;
-            await say('Good job!');
             if (this.playerPlaybackPos === this.sequence.length) {
               this.playerPlaybackPos = 0;
               this.addNote();
+              await say('Good job!');
               this.updateScore(this.sequence.length - 1);
               await this.playSequence();
             }
@@ -180,7 +180,7 @@ return new Promise((resolve) => {
 
 function randomCount() {
     let beat = 1000;
-    let count = [2*beat,1*beat,1/2*beat,1/4*beat,1/8*beat,1/16*beat];
+    let count = [1*beat,1/2*beat,1/4*beat,1/8*beat,1/16*beat,1/32*beat];
     return count[Math.floor(Math.random()*count.length)];
 }
 
