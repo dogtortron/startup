@@ -121,38 +121,82 @@ class Game {
     await say('Now Play!');
     }
 
-    saveScore(score) {
+    async saveScore(score) {
         const userName = this.getPlayerName();
+        const date = new Date().toLocaleDateString();
+        const newScore = {name: userName, score: score, date: date};
+
+        try {
+            const response = await fetch ('api/score', {
+                method: 'POST',
+                headers: {'content-type': 'application/json'},
+                body: JSON.stringify(newScore),
+            });
+            // Store what the service gave us as the high scores
+            const scores = await response.json();
+            localStorage.setItem('scores', JSON.stringify(scores));
+        } catch {
+            this.updateScoresLocal(newScore);
+        }
+    }
+    updateScoresLocal(newScore) {
         let scores = [];
         const scoresText = localStorage.getItem('scores');
         if (scoresText) {
             scores = JSON.parse(scoresText);
         }
-        scores = this.updateScores(userName, score, scores);
-        
-        localStorage.setItem('scores', JSON.stringify(scores));
+        let found = false;
+        for (const [i, prevScore] of scores.entries()) {
+        if (newScore > prevScore.score) {
+            scores.splice(i, 0, newScore);
+            found = true;
+            break;
         }
-        
-    updateScores(userName, score, scores) {
-    const date = new Date().toLocaleDateString();
-    const newScore = { name: userName, score: score, date: date };
+        }
 
-    let found = false;
-    for (const [i, prevScore] of scores.entries()) {
-        if (score > prevScore.score) {
-        scores.splice(i, 0, newScore);
-        found = true;
-        break;
-        }
-    }
-    if (!found) {
+        if (!found) {
         scores.push(newScore);
-    }
-    if (scores.length > 10) {
+        }
+
+        if (scores.length > 10) {
         scores.length = 10;
+        }
+
+        localStorage.setItem('scores', JSON.stringify(scores));
     }
-    return scores;
-    }
+
+    // saveScore(score) {
+    //     const userName = this.getPlayerName();
+    //     let scores = [];
+    //     const scoresText = localStorage.getItem('scores');
+    //     if (scoresText) {
+    //         scores = JSON.parse(scoresText);
+    //     }
+    //     scores = this.updateScores(userName, score, scores);
+        
+    //     localStorage.setItem('scores', JSON.stringify(scores));
+    //     }
+        
+    // updateScores(userName, score, scores) {
+    // const date = new Date().toLocaleDateString();
+    // const newScore = { name: userName, score: score, date: date };
+
+    // let found = false;
+    // for (const [i, prevScore] of scores.entries()) {
+    //     if (score > prevScore.score) {
+    //     scores.splice(i, 0, newScore);
+    //     found = true;
+    //     break;
+    //     }
+    // }
+    // if (!found) {
+    //     scores.push(newScore);
+    // }
+    // if (scores.length > 10) {
+    //     scores.length = 10;
+    // }
+    // return scores;
+    // }
 
 }
 
