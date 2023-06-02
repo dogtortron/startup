@@ -59,3 +59,11 @@ For this deliverable I made my application functional for users to play game
 - **Database** - Displays the users and their scores. Currently this is stored and retrieved from local storage, but it will be replaced with the database data later.
 - **WebSocket** - I used the setInterval function to periodically add a new user. This will be replaced with WebSocket messages later.
 - **Application logic** - Fully functional game. For now it's like Simon in terms of sequencing the button order, but in Simon the user can actually cheat if they really wanted to, but not here haha. A few functions are added to make the message from the game to the user more informative. I didn't have enough time to make it "more musical", meaning a note to be held longer and users are tested by the ability to produce the sequence AND the timing right.
+
+## Service Deliverable
+For this deliverable I created an HTTP service to host my frontend and provide backend endpoints.
+- **Node.js/Express HTTP service** - done.
+- **Static middleware for frontend** - done.
+- **Calls to third party endpoints** - Almost done.
+- **Backend service endpoints** - Placeholders for login that stores the current user on the server.
+- **Frontend calls service endpoints** - Used fetch function.
