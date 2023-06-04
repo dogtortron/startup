@@ -64,6 +64,6 @@ For this deliverable I made my application functional for users to play game
 For this deliverable I created an HTTP service to host my frontend and provide backend endpoints.
 - **Node.js/Express HTTP service** - done.
 - **Static middleware for frontend** - done.
-- **Calls to third party endpoints** - Almost done.
+- **Calls to third party endpoints** - done.
 - **Backend service endpoints** - Placeholders for login that stores the current user on the server.
 - **Frontend calls service endpoints** - Used fetch function.
