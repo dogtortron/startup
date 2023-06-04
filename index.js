@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const config = require('./dbConfig.json');
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
@@ -23,6 +24,24 @@ apiRouter.get('/scores', (_req, res) => {
 apiRouter.post('/score', (req, res) => {
   scores = updateScores(req.body, scores);
   res.send(scores);
+});
+
+// GetBird
+const { createApi } = require ('unsplash-js');
+const unsplash = createApi({
+  accessKey: config.unsplashKey,
+});
+
+unsplash.photos.getRandom({
+  query: 'bird',
+  featured: true,
+  count: 1,
+})
+.then (result => {
+  const birds = result.response;
+  apiRouter.get('/birds', (_req, res) => {
+    res.send(birds);
+  });
 });
 
 // Return the application's default page if the path is unknown
