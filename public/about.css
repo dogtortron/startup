@@ -26,15 +26,20 @@ iframe {
     margin-right: 3vw;
     align-self: stretch;
 }
-.birdOfTheDay h2{
+.birdOfTheDay h2 {
     border-bottom: solid darkgray thin;
+}
+
+.birdName > h3 {
+    font-size: smaller;
+    color: blue;
 }
 
 audio{
     width: 30vw;
 }
 
-.birdImage {
+#birdImage {
     height:40vh;
     margin-bottom: 2vh;
 }
