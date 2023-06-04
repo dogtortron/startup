@@ -30,11 +30,6 @@ iframe {
     border-bottom: solid darkgray thin;
 }
 
-.birdName > h3 {
-    font-size: smaller;
-    color: blue;
-}
-
 audio{
     width: 30vw;
 }
