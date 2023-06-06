@@ -32,23 +32,17 @@ const unsplash = createApi({
   accessKey: config.unsplashKey,
 });
 
-unsplash.photos.getRandom({
-  query: 'bird',
-  featured: true,
-  count: 1,
-})
-.then (result => {
-  const birds = result.response;
-  apiRouter.get('/birds', (_req, res) => {
+apiRouter.get('/birds', (_req, res) => {
+  unsplash.photos.getRandom({
+    query: 'bird',
+    featured: true,
+    count: 1,
+  })
+  .then(result => {
+    const birds = result.response;
     res.send(birds);
-  });
+  })
 });
-
-// apiRouter.post('/bird', (req, res) => {
-//   scores = updateScores(req.body, scores);
-//   res.send(scores);
-// });
-
 
 // Return the application's default page if the path is unknown
 app.use((_req, res) => {
