@@ -41,6 +41,9 @@ apiRouter.get('/birds', (_req, res) => {
   .then(result => {
     const birds = result.response;
     res.send(birds);
+    // console.log(birds);
+    // console.log(birds[0].urls.regular);
+    // console.log(birds[0].description);
   })
 });
 

@@ -1,3 +1,4 @@
+
 async function loadBird(){
     const response = await fetch('/api/birds');
     const birdInfo = await response.json();
@@ -8,21 +9,13 @@ async function loadBird(){
     return bird;
   }
 
-function displayPicture() {
+function displayBird() {
     loadBird()
     .then((bird) => {
-        const containerEl = document.getElementById('birdImage');
-        containerEl.src = bird[0];
-      });
-}
-
-function displayBirdInfo(){
-    loadBird()
-    .then((bird) => {
-        const containerEl = document.getElementById('birdInfo');
-        containerEl.textContent = bird[1];
+        const imgEl = document.getElementById('birdImage');
+        imgEl.src = bird[0];
+        const textEl = document.getElementById('birdInfo');
+        textEl.textContent = bird[1];
     });
 }
-
-displayPicture();
-displayBirdInfo();
+displayBird();
