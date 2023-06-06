@@ -67,3 +67,9 @@ For this deliverable I created an HTTP service to host my frontend and provide b
 - **Calls to third party endpoints** - done.
 - **Backend service endpoints** - Placeholders for login that stores the current user on the server.
 - **Frontend calls service endpoints** - Used fetch function.
+
+## DB Deliverable
+For this deliverable I stored and retrieved data from MongoDB.
+- **MongoDB Atlas database created** - done!
+- **Backend endpoints for manipulating application data** - done.
+- **Stores data in MongoDB** - done!
