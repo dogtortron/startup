@@ -73,3 +73,10 @@ For this deliverable I stored and retrieved data from MongoDB.
 - **MongoDB Atlas database created** - done!
 - **Backend endpoints for manipulating application data** - done.
 - **Stores data in MongoDB** - done!
+
+## Login Deliverable
+For this deliverable I added user registration and authentication.
+- **User registration** - Creates a new account in the database.
+- **existing user** - Verifies the user's name and password from data stored in the database
+- **Use MongoDB to store credentials** - done!
+- **Restricts functionality** - You cannot play until you have logged in.
