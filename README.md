@@ -80,3 +80,11 @@ For this deliverable I added user registration and authentication.
 - **existing user** - Verifies the user's name and password from data stored in the database
 - **Use MongoDB to store credentials** - done!
 - **Restricts functionality** - You cannot play until you have logged in.
+
+## WebSocket Deliverable
+For this deliverable I enabled realtime reporting of activities from other users (starting a new game and scoring).
+
+- **Backend listens for WebSocket connection** - done!
+- **Frontend makes WebSocket connection** - done!
+- **Data sent over WebSocket connection** - done!
+- **WebSocket data displayed** - All user activities display in realtime.

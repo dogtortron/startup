@@ -1,3 +1,7 @@
+// Event messages
+const GameEndEvent = 'gameEnd';
+const GameStartEvent = 'gameStart';
+
 const btnDescriptions = [
     { file: 'Note1.mp3'},
     { file: 'Note2.mp3'},
@@ -46,6 +50,7 @@ class Game {
 
         const playerNameEl = document.querySelector('.player-name');
         playerNameEl.textContent = this.getPlayerName();
+        this.configureWebSocket();
     } //end constructor
 
     getPlayerName() {
@@ -88,6 +93,8 @@ class Game {
 
     async reset() {
         location.reload();
+        // Let other players know a new game has started
+        this.broadcastEvent(this.getPlayerName(), GameStartEvent, {});
     }
 
     changeOnclick() {
@@ -132,6 +139,10 @@ class Game {
                 headers: {'content-type': 'application/json'},
                 body: JSON.stringify(newScore),
             });
+
+            // Let other players know the game has concluded
+            this.broadcastEvent(userName, GameEndEvent, newScore);
+
             // Store what the service gave us as the high scores
             const scores = await response.json();
             localStorage.setItem('scores', JSON.stringify(scores));
@@ -165,50 +176,61 @@ class Game {
         localStorage.setItem('scores', JSON.stringify(scores));
     }
 
-    // saveScore(score) {
-    //     const userName = this.getPlayerName();
-    //     let scores = [];
-    //     const scoresText = localStorage.getItem('scores');
-    //     if (scoresText) {
-    //         scores = JSON.parse(scoresText);
-    //     }
-    //     scores = this.updateScores(userName, score, scores);
-        
-    //     localStorage.setItem('scores', JSON.stringify(scores));
-    //     }
-        
-    // updateScores(userName, score, scores) {
-    // const date = new Date().toLocaleDateString();
-    // const newScore = { name: userName, score: score, date: date };
+    // websocket stuff
+    configureWebSocket() {
+        const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+        this.socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+        this.socket.onopen = (event) => {
+          this.displayMsg('system', 'game', 'connected');
+        };
+        this.socket.onclose = (event) => {
+          this.displayMsg('system', 'game', 'disconnected');
+        };
+        this.socket.onmessage = async (event) => {
+          const msg = JSON.parse(await event.data.text());
+          if (msg.type === GameEndEvent) {
+            this.displayMsg('player', msg.from, `scored ${msg.value.score}`);
+          } else if (msg.type === GameStartEvent) {
+            this.displayMsg('player', msg.from, `started a new game`);
+          }
+        };
+    }
 
-    // let found = false;
-    // for (const [i, prevScore] of scores.entries()) {
-    //     if (score > prevScore.score) {
-    //     scores.splice(i, 0, newScore);
-    //     found = true;
-    //     break;
-    //     }
-    // }
-    // if (!found) {
-    //     scores.push(newScore);
-    // }
-    // if (scores.length > 10) {
-    //     scores.length = 10;
-    // }
-    // return scores;
-    // }
+    displayMsg(cls, from, msg) {
+        const chatText = document.querySelector('#player-messages');
+        chatText.innerHTML =
+        //   `<div class="event"><span class="${cls}-event">${from}</span> ${msg}</div>` + chatText.innerHTML;
+          `<p>${from} ${msg}</p>` + chatText.innerHTML;
+          
+    }
 
+    broadcastEvent(from, type, value) {
+        const event = {
+          from: from,
+          type: type,
+          value: value,
+        };
+        this.socket.send(JSON.stringify(event));
+    }
 }
 
 const game = new Game();
 
 // placeholder for websocket messages
-setInterval(() => {
-    const score = Math.floor(Math.random() * 3000);
-    const chatText = document.querySelector('#player-messages');
-    chatText.innerHTML =
-      `<p>Dogtor Trog scored ${score}</p>` + chatText.innerHTML;
-  }, 5000);
+// keep this for reference if needed
+// setInterval(() => {
+//     const score = Math.floor(Math.random() * 3000);
+//     const chatText = document.querySelector('#player-messages');
+//     chatText.innerHTML =
+//       `<p>Dogtor Trog scored ${score}</p>` + chatText.innerHTML;
+//   }, 5000);
+
+// // Actual websocket, moved it inside the game object
+// displayMsg(cls, from, msg) {
+//     const chatText = document.querySelector('#player-messages');
+//     chatText.innerHTML =
+//       `<div class="event"><span class="${cls}-event">${from}</span> ${msg}</div>` + chatText.innerHTML;
+//   }
 
 function loadSound(filename) {
     return new Audio(filename);
