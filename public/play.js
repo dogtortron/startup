@@ -216,21 +216,6 @@ class Game {
 
 const game = new Game();
 
-// placeholder for websocket messages
-// keep this for reference if needed
-// setInterval(() => {
-//     const score = Math.floor(Math.random() * 3000);
-//     const chatText = document.querySelector('#player-messages');
-//     chatText.innerHTML =
-//       `<p>Dogtor Trog scored ${score}</p>` + chatText.innerHTML;
-//   }, 5000);
-
-// // Actual websocket, moved it inside the game object
-// displayMsg(cls, from, msg) {
-//     const chatText = document.querySelector('#player-messages');
-//     chatText.innerHTML =
-//       `<div class="event"><span class="${cls}-event">${from}</span> ${msg}</div>` + chatText.innerHTML;
-//   }
 
 function loadSound(filename) {
     return new Audio(filename);
