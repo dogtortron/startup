@@ -3,219 +3,208 @@ const GameEndEvent = 'gameEnd';
 const GameStartEvent = 'gameStart';
 
 const btnDescriptions = [
-    { file: 'Note1.mp3'},
-    { file: 'Note2.mp3'},
-    { file: 'Note3.mp3'},
-    { file: 'Note4.mp3'},
+    { file: 'note1.mp3'},
+    { file: 'note2.mp3'},
+    { file: 'note3.mp3'},
+    { file: 'note4.mp3'},
   ];
-class Button {
-    constructor(description, el) {
-        this.el = el;
-        this.sound = loadSound(description.file);
-      }
-    async press(volume = 1.0) {
-    return new Promise(async (pressResolve) => {
-        await this.playSound(volume);
-        pressResolve();
-    });
-    }
-
-    async playSound(volume) {
-    return new Promise((playResolve) => {
-        this.sound.volume = volume;
-        this.sound.onended = playResolve;
-        this.sound.play();
-    });
-    }
-}
-
 class Game {
-    buttons;
-    allowPlayer;
-    sequence;
-    playerPlaybackPos;
+  score;
+  userSongArr;
 
-    constructor () {
-        this.buttons = new Map();
-        this.allowPlayer = false;
-        this.sequence = [];
-        this.playerPlaybackPos = 0;
-        
+  constructor () {
+    this.score = 0;
+    this.userSongArr = []; // do I actually need it in the constructor?
+    this.configureWebSocket();
+    const playerNameEl = document.querySelector('.player-name');
+    playerNameEl.textContent = this.getPlayerName();
+  }
 
-        document.querySelectorAll('.game-button').forEach((el, i) => {
-            if (i < btnDescriptions.length) {
-              this.buttons.set(el.id, new Button(btnDescriptions[i], el));
-            }
-          });
+  getPlayerName() {
+    return localStorage.getItem('userName') ?? 'Mystery player';
+  }
 
-        const playerNameEl = document.querySelector('.player-name');
-        playerNameEl.textContent = this.getPlayerName();
-        this.configureWebSocket();
-    } //end constructor
-
-    getPlayerName() {
-        return localStorage.getItem('userName') ?? 'Mystery player';
+  async generateSong() {
+    let genSong = [];
+    const n = 4;
+    for (var i=0; i < n; i++) {
+      let songNumber = Math.floor(Math.random()*4)
+      let song = btnDescriptions[songNumber].file;
+      let playSong = new Audio(song);
+      const tempo = randomCount()
+      await playSong.play();
+      await delay(500)
+      await delay(tempo)
+      genSong.push(song,Math.round(tempo/1000));
     }
+    genSong = genSong.slice(0,-1);
+    return genSong;
+  };
 
-    async pressButton(button) {
-        if (this.allowPlayer) {
-            this.allowPlayer=true;
-            await this.buttons.get(button.id).press(1.0);
-          
-          if (this.sequence[this.playerPlaybackPos].el.id === button.id) {
-            this.playerPlaybackPos++;
-            if (this.playerPlaybackPos === this.sequence.length) {
-              this.playerPlaybackPos = 0;
-              this.addNote();
-              await say('Good job!');
-              this.updateScore(this.sequence.length - 1);
-              await this.playSequence();
-            }
-            this.allowPlayer = true;
-          } else {
-            this.saveScore(this.sequence.length - 1);
-            this.allowPlayer=false;
-            await say('You missed! Hit Reset --> Sing,Billy if you want to start over!');
-          }
-          }
+
+  playGame = () => {
+    this.userSongArr = [];
+    this.disableButton(".game-button")
+    this.generateSong()
+    .then((song) => {
+      song = JSON.stringify(song);
+      console.log("Your cheatsheet because life is difficult 🥳 \n Billy's song: ", song);
+      return song;
+    })
+    .then(async (song) => {
+      this.enableButton(".game-button");
+      say('Now Play!');
+      await delay(7000);
+      return song;
+    })
+    .then((song) => {
+      const userSong = this.generateUserSong();
+      console.log("Your song: ",userSong);
+      console.log(song === userSong);
+      let result = song === userSong;
+      return result;
+    })
+    .then((result) => {
+      if (result) {
+        this.score++;
+        say('Good job!')
+        console.log('woohooo, new score = ', this.score);
+        this.updateScore(this.score);
       }
-
-    async singBilly() {
-        this.allowPlayer = false;
-        this.changeOnclick();
-        this.playerPlaybackPos = 0;
-        this.sequence = [];
-        this.addNote();
-        this.updateScore('--');
-        await this.playSequence();
-        this.allowPlayer = true;
-    }
-
-    async reset() {
-        location.reload();
-        // Let other players know a new game has started
-        this.broadcastEvent(this.getPlayerName(), GameStartEvent, {});
-    }
-
-    changeOnclick() {
-        const els = document.querySelectorAll( ".game-button" );
-        for (var i=0; i < els.length; i++) {
-            els[i].setAttribute("onclick", "game.pressButton(this)");
-        }
-    }
-    getRandomNote() {
-        let notes = Array.from(this.buttons.values());
-        return notes[Math.floor(Math.random() * this.buttons.size)];
-    }
-    addNote() {
-        const note = this.getRandomNote();
-        this.sequence.push(note);
-        // return this.sequence;
+      else {
+        this.disableButton(".game-button");
+        this.disableButton(".singButton");
+        say('So close! Hit reset to replay!')
+        console.log('ooops, score = ', this.score);
+        this.saveScore(this.score);
       }
-    updateScore(score) {
-        const scoreEl = document.querySelector('#score');
-        scoreEl.textContent = score;
+    })
+  }
+  async reset() {
+    location.reload();
+    // Let other players know a new game has started
+    this.broadcastEvent(this.getPlayerName(), GameStartEvent, {});
+  }
+
+  generateUserSong () {
+    let newUserSong = [];
+    newUserSong = this.userSongArr.slice(0,-1);
+    const n = newUserSong.length;
+    for (var i=1; i < n; i = i+2) {
+      newUserSong[i] = this.userSongArr[i+2] - this.userSongArr[i];
+      newUserSong[i] = Math.round(newUserSong[i]/1000);
     }
-    async playSequence() {
-    await delay(2000);
-    await say('Now listen!');
-    await delay(1000);
-    for (const note of this.sequence) {
-        await note.press(1.0);
-        await delay(randomCount());
+    this.userSongArr = [];
+    let userSong = JSON.stringify(newUserSong);
+    return userSong;
+  }
+
+  updateScore(score) {
+    const scoreEl = document.querySelector('#score');
+    scoreEl.textContent = score;
+  }
+
+  async saveScore(score) {
+    const userName = this.getPlayerName();
+    const date = new Date().toLocaleDateString();
+    const newScore = {name: userName, score: score, date: date};
+
+    try {
+      const response = await fetch ('api/score', {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify(newScore),
+      });
+
+      // Let other players know the game has concluded
+      this.broadcastEvent(userName, GameEndEvent, newScore);
+
+      // Store what the service gave us as the high scores
+      const scores = await response.json();
+      localStorage.setItem('scores', JSON.stringify(scores));
+  } catch {
+      this.updateScoresLocal(newScore);
     }
-    await delay(500);
-    await say('Now Play!');
+  }
+
+  updateScoresLocal(newScore) {
+    let scores = [];
+    const scoresText = localStorage.getItem('scores');
+    if (scoresText) {
+        scores = JSON.parse(scoresText);
     }
-
-    async saveScore(score) {
-        const userName = this.getPlayerName();
-        const date = new Date().toLocaleDateString();
-        const newScore = {name: userName, score: score, date: date};
-
-        try {
-            const response = await fetch ('api/score', {
-                method: 'POST',
-                headers: {'content-type': 'application/json'},
-                body: JSON.stringify(newScore),
-            });
-
-            // Let other players know the game has concluded
-            this.broadcastEvent(userName, GameEndEvent, newScore);
-
-            // Store what the service gave us as the high scores
-            const scores = await response.json();
-            localStorage.setItem('scores', JSON.stringify(scores));
-        } catch {
-            this.updateScoresLocal(newScore);
-        }
+    let found = false;
+    for (const [i, prevScore] of scores.entries()) {
+    if (newScore > prevScore.score) {
+        scores.splice(i, 0, newScore);
+        found = true;
+        break;
     }
-    updateScoresLocal(newScore) {
-        let scores = [];
-        const scoresText = localStorage.getItem('scores');
-        if (scoresText) {
-            scores = JSON.parse(scoresText);
-        }
-        let found = false;
-        for (const [i, prevScore] of scores.entries()) {
-        if (newScore > prevScore.score) {
-            scores.splice(i, 0, newScore);
-            found = true;
-            break;
-        }
-        }
-
-        if (!found) {
-        scores.push(newScore);
-        }
-
-        if (scores.length > 10) {
-        scores.length = 10;
-        }
-
-        localStorage.setItem('scores', JSON.stringify(scores));
     }
-
-    // websocket stuff
-    configureWebSocket() {
-        const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
-        this.socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
-        this.socket.onopen = (event) => {
-          this.displayMsg('system', 'game', 'connected');
-        };
-        this.socket.onclose = (event) => {
-          this.displayMsg('system', 'game', 'disconnected');
-        };
-        this.socket.onmessage = async (event) => {
-          const msg = JSON.parse(await event.data.text());
-          if (msg.type === GameEndEvent) {
-            this.displayMsg('player', msg.from, `scored ${msg.value.score}`);
-          } else if (msg.type === GameStartEvent) {
-            this.displayMsg('player', msg.from, `started a new game`);
-          }
-        };
+    if (!found) {
+    scores.push(newScore);
     }
-
-    displayMsg(cls, from, msg) {
-        const chatText = document.querySelector('#player-messages');
-        chatText.innerHTML =
-        //   `<div class="event"><span class="${cls}-event">${from}</span> ${msg}</div>` + chatText.innerHTML;
-          `<p>${from} ${msg}</p>` + chatText.innerHTML;
-          
+    if (scores.length > 10) {
+    scores.length = 10;
     }
+    localStorage.setItem('scores', JSON.stringify(scores));
+  }
 
-    broadcastEvent(from, type, value) {
-        const event = {
-          from: from,
-          type: type,
-          value: value,
-        };
-        this.socket.send(JSON.stringify(event));
-    }
-}
+  getId(noteId) {
+    console.log(noteId);
+    let time = Date.now();
+    this.userSongArr.push(noteId, time);
+  }
+// ".singButton" and ".game-button" 
+  disableButton(buttonName) {
+    const els = document.querySelectorAll( buttonName);
+      for (var i=0; i < els.length; i++) {
+        els[i].disabled = true;
+      }
+  }
 
+  enableButton(buttonName) {
+    const els = document.querySelectorAll( buttonName );
+      for (var i=0; i < els.length; i++) {
+        els[i].disabled = false;
+      }
+  }
+  // websocket stuff
+  configureWebSocket() {
+    const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+    this.socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+    this.socket.onopen = (event) => {
+      this.displayMsg('system', 'game', 'connected');
+    };
+    this.socket.onclose = (event) => {
+      this.displayMsg('system', 'game', 'disconnected');
+    };
+    this.socket.onmessage = async (event) => {
+      const msg = JSON.parse(await event.data.text());
+      if (msg.type === GameEndEvent) {
+        this.displayMsg('player', msg.from, `scored ${msg.value.score}`);
+      } else if (msg.type === GameStartEvent) {
+        this.displayMsg('player', msg.from, `started a new game`);
+      }
+    };
+  }
+
+  displayMsg(cls, from, msg) {
+    const chatText = document.querySelector('#player-messages');
+    chatText.innerHTML =
+    `<p>${from} ${msg}</p>` + chatText.innerHTML;
+  }
+
+  broadcastEvent(from, type, value) {
+    const event = {
+      from: from,
+      type: type,
+      value: value,
+    };
+    this.socket.send(JSON.stringify(event));
+  }
+} // end of class Game
 const game = new Game();
-
 
 function loadSound(filename) {
     return new Audio(filename);
@@ -230,8 +219,7 @@ return new Promise((resolve) => {
 }
 
 function randomCount() {
-    let beat = 1000;
-    let count = [1*beat,1/2*beat,1/4*beat,1/8*beat,1/16*beat,1/32*beat];
+    let count = [1000,2000];
     return count[Math.floor(Math.random()*count.length)];
 }
 
@@ -241,4 +229,3 @@ function say(something) {
         resolve(true);
     })
 }
-

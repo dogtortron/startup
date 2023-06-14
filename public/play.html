@@ -43,7 +43,7 @@
     <div class="play">
         <div class="divPlay">
         <section class="billySing">
-            <button class="singButton btn btn-primary" type="button" onclick="game.singBilly();">Sing, Billy!</button>
+            <button class="singButton btn btn-primary" type="button" onclick="game.playGame();">Sing, Billy!</button>
             <p id="game-message"></p>
             
         <svg class="playSVG" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px"  viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
@@ -69,10 +69,10 @@
         </div>
         <div class="divButton">
         <section class="playButton">
-            <button type="button" id="note1" class="game-button btn btn-primary" onclick="loadSound('Note1.mp3').play()">Note 1</button>
-            <button type="button" id="note2" class="game-button btn btn-primary" onclick="loadSound('Note2.mp3').play()">Note 2</button>
-            <button type="button" id="note3" class="game-button btn btn-primary" onclick="loadSound('Note3.mp3').play()">Note 3</button>
-            <button type="button" id="note4" class="game-button btn btn-primary" onclick="loadSound('Note4.mp3').play()">Note 4</button>
+            <button type="button" id="note1" class="game-button btn btn-primary" onclick="loadSound('note1.mp3').play();game.getId(this.id + '.mp3')">Note 1</button>
+            <button type="button" id="note2" class="game-button btn btn-primary" onclick="loadSound('note2.mp3').play();game.getId(this.id + '.mp3')">Note 2</button>
+            <button type="button" id="note3" class="game-button btn btn-primary" onclick="loadSound('note3.mp3').play();game.getId(this.id + '.mp3')">Note 3</button>
+            <button type="button" id="note4" class="game-button btn btn-primary" onclick="loadSound('note4.mp3').play();game.getId(this.id + '.mp3')">Note 4</button>
         </section>
         <section class="control">
             <div><p>Your Name: <span class="player-name"></span></p></div>
