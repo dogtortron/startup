@@ -38,7 +38,7 @@ body {
     background-color: hsl(199, 72%, 89%);
   }
   h1 {
-    flex: 0.5;
+    flex: 0.2;
   }
   form {
     flex: 1;
@@ -46,7 +46,7 @@ body {
   .mainSVG {
     flex: 2;
     display: flex;
-    width: 40vw;
+    width: 30vw;
     height: 40vh;
     
   }
@@ -65,8 +65,7 @@ body {
   footer span{
     float: right;
   }
-  
-/* @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap'); */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;800&display=swap');
 
@@ -95,28 +94,9 @@ nav{
   font-weight: 400;
   font-size: larger;
 }
-/* 
-  h1 {
-    font-family: "Crimson Text", serif;
-    font-weight: 700 !important;
-}
-    h2 {
-    font-family: "Crimson Text", serif;
-    font-weight: 600;
-    }
 
-    h3 {
-    font-family: "Crimson Text", serif;
-    font-weight: 400;
-    }
-
-  p{
-    font-family: "Crimson Text", serif;
-    font-weight: 400;
+@media (max-width: 800px) {
+  .mainSVG {
+    width: 50vw;
   }
-
-  nav{
-    font-family: "Crimson Text", serif;
-    font-weight: 400;
-    font-size: larger;
-  } */
+}
