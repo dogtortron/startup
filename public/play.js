@@ -14,7 +14,7 @@ class Game {
 
   constructor () {
     this.score = 0;
-    this.userSongArr = []; // do I actually need it in the constructor?
+    this.userSongArr = [];
     this.configureWebSocket();
     const playerNameEl = document.querySelector('.player-name');
     playerNameEl.textContent = this.getPlayerName();
@@ -155,7 +155,7 @@ class Game {
     let time = Date.now();
     this.userSongArr.push(noteId, time);
   }
-// ".singButton" and ".game-button" 
+  
   disableButton(buttonName) {
     const els = document.querySelectorAll( buttonName);
       for (var i=0; i < els.length; i++) {
