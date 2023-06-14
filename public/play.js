@@ -54,7 +54,7 @@ class Game {
     .then(async (song) => {
       this.enableButton(".game-button");
       say('Now Play!');
-      await delay(7000);
+      await delay(7500);
       return song;
     })
     .then((song) => {
