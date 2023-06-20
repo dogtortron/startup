@@ -4,19 +4,20 @@ import '../app.css';
 
 export function About(props) {
   const [birdUrl, setImageUrl] = React.useState('');
+  const [birdDescr, setBirdDescr] = React.useState('');
 
   React.useEffect(() => {
     const random = Math.floor(Math.random() * 1000);
-    fetch(`https://picsum.photos/v2/list?page=${random}&limit=1`)
-    // fetch('/api/birds')
+    fetch('/api/birds')
       .then((response) => response.json())
       .then((birdInfo) => {
-        // const birdUrl = birdInfo[0];
+        //const birdUrl = birdInfo[0];
         const birdObj = birdInfo[0];
-        const birdUrl = birdObj.download_url;
-        //const birdUrl = birdObj.urls.regular;
-        //const birdDescr = birdObj.description;
+       // const birdUrl = birdObj.download_url;
+        const birdUrl = birdObj.urls.regular;
+        const birdDescr = birdObj.description;
         setImageUrl(birdUrl);
+        setBirdDescr(birdDescr);
       })
       .catch();
   }, []);
@@ -32,8 +33,8 @@ export function About(props) {
         </div>
         <div className="birdOfTheDay">
         <section>
-            <h2>Random Picture</h2>
-            {/* <p id="birdInfo">{imgInfo}</p> */}
+            <h2>Bird of the Moment</h2>
+            <p id="birdInfo">{birdDescr}</p>
             <img id="birdImage" src={birdUrl}/>
             <audio controls src="https://www.bird-sounds.net/sounds/1630.mp3"></audio>
         </section>

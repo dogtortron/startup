@@ -6,11 +6,17 @@ import {Login} from './login/login';
 import {About} from './about/about';
 import {Play} from './play/play';
 import {Scores} from './scores/scores';
+import { AuthState } from './login/authState';
+
 
 function NotFound() {
     return <main className='container-fluid bg-secondary text-center'>404: Return to sender. Address unknown.</main>;
   }
 export default function App() {
+  const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
+  const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
+  const [authState, setAuthState] = React.useState(currentAuthState);
+
   return (
   <BrowserRouter>
   <div className='app'>
@@ -24,9 +30,9 @@ export default function App() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item "><NavLink className="nav-link" to="">Login</NavLink></li>
-            <li className="nav-item "><NavLink className="nav-link" to="play">Play</NavLink></li>
-            <li className="nav-item "><NavLink className="nav-link" to="scores">Scores</NavLink></li>
-            <li className="nav-item "><NavLink className="nav-link" to="about">About</NavLink></li> 
+            {authState === AuthState.Authenticated && (<li className="nav-item "><NavLink className="nav-link" to="play">Play</NavLink></li>)}
+            {authState === AuthState.Authenticated && (<li className="nav-item "><NavLink className="nav-link" to="scores">Scores</NavLink></li>)}
+            {authState === AuthState.Authenticated && (<li className="nav-item "><NavLink className="nav-link" to="about">About</NavLink></li>)}
           </ul>
           </div>  
           {/* need to figure out how to do drop menu */}
@@ -34,8 +40,21 @@ export default function App() {
 
   </header>
 <Routes>
-  <Route path='/' element={<Login />} exact />
-  <Route path='/play' element={<Play />} />
+  <Route
+    path='/'
+    element={
+      <Login
+        userName={userName}
+        authState={authState}
+        onAuthChange={(userName, authState) => {
+          setAuthState(authState);
+          setUserName(userName);
+        }}
+      />
+    }
+    exact
+  />
+  <Route path='/play' element={<Play userName={userName} />} />
   <Route path='/scores' element={<Scores />} />
   <Route path='/about' element={<About />} />
   <Route path='*' element={<NotFound />} />
