@@ -91,7 +91,7 @@ For this deliverable I enabled realtime reporting of activities from other users
 
 ## React Deliverable
 I convert most functionalities of my application to React. Those are in the Login, Score, and About page.
--**Bundled using Vite** - done!
--**Multiple functional react components** - Login, score display, and a function to get bird picture from a 3rd party service endpoint.
--**Router** - Routing between login and other compoents (play, score, about).
--**Hooks** - Used `useState` to track the change of random picure urls. 
+- **Bundled using Vite** - done!
+- **Multiple functional react components** - Login, score display, and a function to get bird picture from a 3rd party service endpoint.
+- **Router** - Routing between login and other compoents (play, score, about).
+- **Hooks** - Used `useState` to track the change of random picure urls. 
